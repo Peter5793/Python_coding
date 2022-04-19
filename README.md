@@ -1,2 +1,2 @@
 # Python_coding-
-Pzthon coding practice, including OOP
+Python coding practice, including OOP
