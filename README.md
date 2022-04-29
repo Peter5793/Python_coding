@@ -15,4 +15,5 @@ Most of the resources are not novice ideas, however using some exercises from Ud
 |-----|------------|
 |oop-old cofeee-machine | From Udemy 100 days of coding, using OOp to demomstrate how a coffee machine works.|
 |old_coffee_machine | Does not have OOP principles, simple program thatr simulates how a coffee machine works|
-|Churn_rate| Analyze churn for a Banking institution. Predict and find top features
+|Churn_rate| Analyze churn for a Banking institution. Predict and find top features|
+|Sentiment_Analysis| Applying TF-IDF and Spacy to text and dataframes to analyze user sentiments. Deploying ML models and Techniques such as LDA and PCA|
