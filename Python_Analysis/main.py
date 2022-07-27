@@ -21,7 +21,7 @@ import pandas as pd
 # reading the data
 test_csv = pd.read_csv('test_data (1).csv')
 test_csv.head()
-train_csv = pd.read_csv('C:/Users/LUGAPEDE/OneDrive - B. Braun/Documents/PDP/Data_Wrangling/Python_Analysis/train_data (1).csv')
+train_csv = pd.read_csv('C:/Users/')
 train_csv.head()
 train_csv.iloc[0,0]
 
