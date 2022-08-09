@@ -21,7 +21,9 @@ import pandas as pd
 # reading the data
 test_csv = pd.read_csv('test_data (1).csv')
 test_csv.head()
-train_csv = pd.read_csv('train_data (1).csv')
+=======
+train_csv = pd.read_csv('C:/Users/')
+
 train_csv.head()
 train_csv.iloc[0,0]
 
