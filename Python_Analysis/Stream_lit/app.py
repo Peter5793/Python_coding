@@ -34,10 +34,12 @@ data = [("my unit test failed","software"),
 ("code","software"),
 ("i found some bugs in the code","software"),
 ("i swapped the memory","hardware"),
-("i tested the code","software")]
+("i tested the code","software"),
+("monitor","hardware"),
+("processing units","hardware")]
 
 
-model = Pipeline(('vectorizer', BagOfWords(lowercase=True)), ('nv', MultinomialNB()))
+model = Pipeline(('vectorizer', TFIDF(lowercase=True)), ('nv', MultinomialNB()))
 for x, y in data:
     model = model.learn_one(x, y)
 

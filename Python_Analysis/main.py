@@ -3,8 +3,8 @@ analysis of Twitter feeds for sentiment analysis
 """
 #importing the necesary libraries
 
-pip install -U scikit-learn
-pip install nltk
+#pip install -U scikit-learn
+#pip install nltk
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
