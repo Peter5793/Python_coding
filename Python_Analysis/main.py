@@ -101,15 +101,17 @@ print(metrics.confusion_matrix(test_y, y_pred))
 
 #Prediction trials
 test = ['i enjoyed really good']
-review = re.sub('[^a-zA-Z]', '', test[0])
-review = review.lower()
-review = review.split()
-review = [lemmatizer.lemmatize(word) for word in review if not word in set(stopwords)]
-test_processed = [''.join(review)]
+def preprocess(test):
+    review = re.sub('[^a-zA-Z]', '', test[0])
+    review = review.lower()
+    review = review.split()
+    review = [lemmatizer.lemmatize(word) for word in review if not word in set(stopwords)]
+    review = [''.join(review)]
+    return review
 
-test_processed
+review = preprocess(test)
 
-test_input = tf_idf.transform(test_processed)
+test_input = tf_idf.transform(review)
 
 test_input.shape
 
