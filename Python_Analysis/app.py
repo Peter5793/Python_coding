@@ -30,6 +30,18 @@ c= conn.cursor()
 stopwords = nltk.corpus.stopwords.words('english')
 lemmatizer = WordNetLemmatizer()
 
+def create_table():
+    """ Create table in SQL lite"""
+    c.execute()
+
+def view_data():
+    """ observe all the data"""
+    c.execute()
+
+def add_data():
+    """ add new data to the library"""
+    c.execute()
+
 # import dataset
 data = pd.read_csv('train_data (1).csv')
 def main():
