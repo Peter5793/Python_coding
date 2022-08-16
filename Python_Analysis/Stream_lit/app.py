@@ -3,8 +3,7 @@ from tables import *
 # core packages 
 from audioop import add
 from email import message
-from tkinter import Menu
-from turtle import position
+
 import streamlit as st
 import pandas as pd
 import seaborn as sns
@@ -37,6 +36,8 @@ data = [("my unit test failed","software"),
 ("i tested the code","software"),
 ("monitor","hardware"),
 ("processing units","hardware")]
+
+print(type(data))
 
 
 model = Pipeline(('vectorizer', TFIDF(lowercase=True)), ('nv', MultinomialNB()))
