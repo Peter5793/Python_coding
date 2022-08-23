@@ -24,3 +24,12 @@ A final project will be on the review of hosue slaes and in King County in USA.
 |Exploratory Analysis||
 |Data Wrangling||
 |main.py||
+|Stream_lit| Web app that provides prediction based a on a moview review|
+|Google Play Store| Analysis of google play store data |
+
+
+
+
+Contributors
+
+* [Peter Lugalia](https://www.linkedin.com/in/peter-lugalia-566817123/)
