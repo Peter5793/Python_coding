@@ -21,7 +21,7 @@ A final project will be on the review of hosue slaes and in King County in USA.
 |----------|------------|
 |Review- Introduction |   |
 |Model Evaluation and Refinement | |
-|Exploratory Analysis||
+|Exploratory Analysis| deep dive into various methods of carrying out exploratory data analysis|
 |Data Wrangling||
 |main.py||
 |Stream_lit| Web app that provides prediction based a on a moview review|
