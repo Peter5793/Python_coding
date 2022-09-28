@@ -17,24 +17,13 @@ def view_data():
 
 
 def track_review():
-    c.execute('CREATE TABLE IF NOT EXISTS review('
-        'Name TEXT, Status TEXT, Duration INT, Purpose TEXT, Credit_Amount INT, Saving_acccount_bonds TEXT,'
-        'Installment_Rate TEXT, Installment_Rate_Income INT, Debtors_Guarantors TEXT, Resident_Years INT,'
-        'Property TEXT, Age INT, Other_Installment_Plans TEXT, Housing TEXT, No_Credits INT, Job TEXT, Dependents INT,'
-        'Telephone TEXT, Foreign_Worker TEXT, Score)')
+    c.execute('CREATE TABLE IF NOT EXISTS review (Foreign_worker TEXT, Gender TEXT, Status TEXT, Credit_History TEXT, Saving_acccount_bonds TEXT,Installment_Rate TEXT,  Debtors_Guarantors TEXT, Property TEXT, Age INT, Other_Installment_Plans TEXT, Housing TEXT,Duration INT,Installment_Rate_Income INT,Credit_Amount)')
     conn.commit()
 
-def add_prediction(Name, Status, Duration , Purpose , Credit_Amount , Saving_acccount_bonds,
-        Installment_Rate, Installment_Rate_Income, Debtors_Guarantors , Resident_Years,
-        Property, Age, Other_Installment_Plans, Housing , No_Credits, Job,Dependents,
-        Telephone , Foreign_Worker, Score):
-        c.execute('INSERT INTO review ( Name, Status, Duration , Purpose , Credit_Amount , Saving_acccount_bonds,'
-        'Installment_Rate, Installment_Rate_Income, Debtors_Guarantors , Resident_Years,'
-        'Property, Age, Other_Installment_Plans, Housing , No_Credits, Job,Dependents,'
-        'Telephone , Foreign_Worker, Score) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (Name, Status, Duration , Purpose , Credit_Amount , Saving_acccount_bonds,
-        Installment_Rate, Installment_Rate_Income, Debtors_Guarantors , Resident_Years,
-        Property, Age, Other_Installment_Plans, Housing , No_Credits, Job,Dependents,
-        Telephone , Foreign_Worker, Score))
+def add_prediction(Foreign_worker, Gender, Status,  Credit_History, Saving_acccount_bonds,Installment_Rate,  Debtors_Guarantors, Property,Age, Other_Installment_Plans, Housing, Duration,Installment_Rate_Income,Credit_Amount):
+        c.execute('INSERT INTO review (Foreign_worker, Gender, Status,  Credit_History, Saving_acccount_bonds,Installment_Rate,  Debtors_Guarantors, Property,Age, Other_Installment_Plans, Housing, Duration,Installment_Rate_Income, Credit_Amount'
+        ') VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', (Foreign_worker, Gender, Status,  Credit_History, Saving_acccount_bonds,Installment_Rate,  Debtors_Guarantors, Property,Age, Other_Installment_Plans, Housing, Duration,Installment_Rate_Income,
+        Credit_Amount))
 
 def view_all_data():
     c.execute('SELECT * FROM review')
