@@ -60,7 +60,7 @@ def main():
     Menu = ["Home", "Monitor", "About"]
     choice = st.sidebar.selectbox("Menu", Menu)
     page_visit()
-    track_review()
+    #track_review()
     if choice == "Home":
         add_data("Home", datetime.now())
         st.subheader('Customer review')
@@ -95,10 +95,9 @@ def main():
         loaded_model = load_model("model/credit_score.pkl")
         prediction = loaded_model.predict(single_sample)
         pred_prob = loaded_model.predict_proba(single_sample)
-
+        add_prediction(Foreign_worker, Gender, Status, Credit_Hist, SvgBond, InstallmentRate, DebtGuarantors,PropertyValue, Age,otherInstallmentPlans, Housing, Duration, InstallmentRateIncome, CreditAmount)
         st.write( prediction)
         
-        add_prediction(Foreign_worker, Gender, Status, Credit_Hist, SvgBond, InstallmentRate,  DebtGuarantors, PropertyValue, Age, otherInstallmentPlans, Housing, Duration,InstallmentRateIncome, CreditAmount)
 
         if prediction == 1:
             st.success('Huuray you have a good score')
