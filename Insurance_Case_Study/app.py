@@ -49,10 +49,11 @@ housing = {'own':0, 'for free':1, 'rent':2}
 
 
 data = pd.read_csv('case_hepster_clean.csv')
+
 def load_model(model_file):
+    """ load the ML model"""
     loaded_model = joblib.load(open(os.path.join(model_file),"rb"))
     return loaded_model
-
 
 def main():
     """ Credit Score prediction"""
@@ -60,57 +61,54 @@ def main():
     Menu = ["Home", "Monitor", "About"]
     choice = st.sidebar.selectbox("Menu", Menu)
     page_visit()
-    #track_review()
+    track_review()
     if choice == "Home":
         add_data("Home", datetime.now())
         st.subheader('Customer review')
-        Foreign_worker = st.radio('Are you a foreign worker?', tuple(worker_dict.keys()))
-        Gender = st.radio('What is your Gender ?', tuple(gender_dict.keys()))
-        Status = st.selectbox('What is the status of your checking account?', tuple(status.keys()))
-        Credit_Hist = st.selectbox('Which text best describes your credit history', tuple(credit_history.keys()))
-        SvgBond = st.selectbox('Do you have a savings account or a Bond?', tuple(savings_account_bond.keys()))
-        InstallmentRate = st.selectbox('What is your current installment rate ?', tuple(installmentRate.keys()))
-        DebtGuarantors = st.selectbox('Indicate if you have a guarantor Status', tuple(debtorsGuarantors.keys()))
-        PropertyValue = st.selectbox('Indicate your current property', tuple(property_dict.keys()))
-        otherInstallmentPlans = st.selectbox('Do you have other installment plans', tuple(other_installment_plans.keys()))
-        Housing = st.selectbox('What is your housing status', tuple(housing.keys()))
-        Duration = st.number_input('How long have you been a customer', 0, 72)
-        Age = st.number_input('Indicate your age', 18 , 90)
-        CreditAmount = st.number_input('Indicate your Credit Amount', 0, 100000)
-        installmentRateIncome = data['Installment_Rate/Income'].sort_values().unique()
-        InstallmentRateIncome = st.number_input('What is your current installment rate as a percentage of disposable income',1,4)
-    
-        feature_list = [get_value(Foreign_worker, worker_dict),get_value(Gender, gender_dict),get_value(Status,status),get_value(Credit_Hist,credit_history), get_value(SvgBond, savings_account_bond), 
-                        get_value(InstallmentRate,installmentRate),get_value(DebtGuarantors,debtorsGuarantors), get_value(PropertyValue, property_dict), get_value(otherInstallmentPlans,other_installment_plans), 
-                        get_value(Housing,housing), Age, CreditAmount, InstallmentRateIncome, Duration]
-        st.write(feature_list)
-        pretty_results = {'Foreign_worker': Foreign_worker, "Gender":Gender, "Status":Status, "Credit_Hist":Credit_Hist, "SvgBond":SvgBond, "InstallmentRate":InstallmentRate,
-                        "DebtGuarantors": DebtGuarantors, "PropertyValue":PropertyValue, "otherInstallmentPlans":otherInstallmentPlans, "Housing":Housing, "Duration":Duration, "Age":Age,
-                        "CreditAmount":CreditAmount, "InstallmentRateIncome":InstallmentRateIncome}
-        st.json(pretty_results)
-        single_sample = np.array(feature_list).reshape(1, -1)
+        with st.form(key = 'customer_form', clear_on_submit= True):
+            Foreign_worker = st.radio('Are you a foreign worker?', tuple(worker_dict.keys()))
+            Gender = st.radio('What is your Gender ?', tuple(gender_dict.keys()))
+            Status = st.selectbox('What is the status of your checking account?', tuple(status.keys()))
+            Credit_Hist = st.selectbox('Which text best describes your credit history', tuple(credit_history.keys()))
+            SvgBond = st.selectbox('Do you have a savings account or a Bond?', tuple(savings_account_bond.keys()))
+            InstallmentRate = st.selectbox('What is your current installment rate ?', tuple(installmentRate.keys()))
+            DebtGuarantors = st.selectbox('Indicate if you have a guarantor Status', tuple(debtorsGuarantors.keys()))
+            PropertyValue = st.selectbox('Indicate your current property', tuple(property_dict.keys()))
+            otherInstallmentPlans = st.selectbox('Do you have other installment plans', tuple(other_installment_plans.keys()))
+            Housing = st.selectbox('What is your housing status', tuple(housing.keys()))
+            Duration = st.number_input('How long have you been a customer', 0, 72)
+            Age = st.number_input('Indicate your age', 18 , 90)
+            CreditAmount = st.number_input('Indicate your Credit Amount', 0, 100000)
+            installmentRateIncome = data['Installment_Rate/Income'].sort_values().unique()
+            InstallmentRateIncome = st.number_input('What is your current installment rate as a percentage of disposable income',1,4)
+            submit_text = st.form_submit_button(label='Submit')
+            feature_list = [get_value(Foreign_worker, worker_dict),get_value(Gender, gender_dict),get_value(Status,status),get_value(Credit_Hist,credit_history), get_value(SvgBond, savings_account_bond), 
+                            get_value(InstallmentRate,installmentRate),get_value(DebtGuarantors,debtorsGuarantors), get_value(PropertyValue, property_dict), get_value(otherInstallmentPlans,other_installment_plans), 
+                            get_value(Housing,housing), Age, CreditAmount, InstallmentRateIncome, Duration]
+            st.write(feature_list)
+            pretty_results = {'Foreign_worker': Foreign_worker, "Gender":Gender, "Status":Status, "Credit_Hist":Credit_Hist, "SvgBond":SvgBond, "InstallmentRate":InstallmentRate,
+                            "DebtGuarantors": DebtGuarantors, "PropertyValue":PropertyValue, "otherInstallmentPlans":otherInstallmentPlans, "Housing":Housing, "Duration":Duration, "Age":Age,
+                            "CreditAmount":CreditAmount, "InstallmentRateIncome":InstallmentRateIncome}
+            st.info(tuple(pretty_results.values()))
+            single_sample = np.array(feature_list).reshape(1, -1)
+            
         #ML
-       
-        st.button('Predict')
-        loaded_model = load_model("model/credit_score.pkl")
-        prediction = loaded_model.predict(single_sample)
-        pred_prob = loaded_model.predict_proba(single_sample)
-        add_prediction(Foreign_worker, Gender, Status, Credit_Hist, SvgBond, InstallmentRate, DebtGuarantors,PropertyValue, Age,otherInstallmentPlans, Housing, Duration, InstallmentRateIncome, CreditAmount)
-        st.write( prediction)
-        
-
-        if prediction == 1:
-            st.success('Huuray you have a good score')
-            pred_probability = {'Good':pred_prob[0][1]*100, 'Bad':pred_prob[0][0]*100}
-            st.subheader('Prediction Probability Score')
-            st.json(pred_probability)
-        else:
-            st.warning('Sorry you have a bad score')
-            pred_probability = {'Good':pred_prob[0][0]*100, 'Bad':pred_prob[0][1]*100}
-            st.subheader('Prediction Probability Score')
-            st.json(pred_probability)
-        
-
+            if submit_text:
+                loaded_model = load_model("model/credit_score.pkl")
+                pred_prob = loaded_model.predict_proba(single_sample)
+                prediction = loaded_model.predict(single_sample)
+                add_prediction(Foreign_worker, Gender, Status, Credit_Hist, SvgBond, InstallmentRate, DebtGuarantors,PropertyValue, Age,otherInstallmentPlans, Housing, Duration, InstallmentRateIncome, CreditAmount)
+                
+                if prediction == 1:
+                    st.success('Huuray you have a good score')
+                    pred_probability = {'Good':pred_prob[0][1]*100, 'Bad':pred_prob[0][0]*100}
+                    st.subheader('Prediction Probability Score')
+                    st.json(pred_probability)
+                else:
+                    st.warning('Sorry you have a bad score')
+                    pred_probability = {'Good':pred_prob[0][0]*100, 'Bad':pred_prob[0][1]*100}
+                    st.subheader('Prediction Probability Score')
+                    st.json(pred_probability)
 
     elif choice == "Monitor":
         add_data('Monitor', datetime.now())
@@ -136,8 +134,9 @@ def main():
         
     else:
         st.subheader("About")
+        add_data('About', datetime.now())
         st.write('Here we look at what it takes to have a good credit scoring')
-        #add_data('About', datetime.now())
+      
 
 
 
