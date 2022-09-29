@@ -52,4 +52,10 @@ Best features which are correlated to the target variable. This can be done dire
 * Categorical Vs Continuous ---- ANOVA test
 * Categorical VS Categorival ---- Chi Square test
 
+## Implementation using Streamlit
 
+```
+pip install streamlit
+streamlit run app.py
+
+```
