@@ -1,9 +1,22 @@
 # Visualization with Python
 
-### Goal
- There are many solutions that have been developed to aid in visualization, among them being PowerBi, Google Data Studio, Looker and Tableau.
+## Goal
+ The aim of the project is to develop a dahboard using Plotly. Data is on airline trends and we shall use it to view the general performance of the airline industry.
 
- However building my own dahsboard using Python and some elements of HTML and CSS offers an opportunity for growth. 
+ ## Language
+ * Python
+ ## Libraries
+ * Pandas
+ * Plotly express
+ ## Website tools
+ * HTML
+ * CSS
+ 
 
- The visualizations that have been developed using Python Code on Plotly Dash.
+ |Project|Description|
+ |--------|-----------|
+ |airline_visualization||
+ |app.py||
+ |Dash_auto.py||
+ |dash_interactivity||
  
